@@ -1,0 +1,27 @@
+{
+  "name": "js-lightning",
+  "version": "1.0.0",
+  "description": "Direct Javascript to Web interpreted server inspired by PHP",
+  "main": "startAll.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tqwhite/js-lightning.git"
+  },
+  "keywords": [
+    "javascript",
+    "php",
+    "intepreted",
+    "html",
+    "web",
+    "server"
+  ],
+  "author": "TQ White II",
+  "license": "Apache License Version 2.0",
+  "bugs": {
+    "url": "https://github.com/tqwhite/js-lightning/issues"
+  },
+  "homepage": "https://github.com/tqwhite/js-lightning#readme"
+}
