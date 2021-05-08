@@ -1,3 +1,6 @@
+
+***IMPORTANT NOTE: This is entirely aspirational. It does not yet work at all.***
+
 # js-lightning
  Direct Javascript to Web interpreted server inspired by PHP
 
