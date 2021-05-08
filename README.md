@@ -47,7 +47,7 @@ Make a directory containing index.html.
 
 Flags specified in the command line take precedence over those specified in systemConfig.ini (if any).
 
-—\-port=VALUE	The port the system will listen to. (Default is 80.)
+—\-port=VALUE	The port the system will listen to. (Default is 8080.)
 
 
 **EXAMPLES**
