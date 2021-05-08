@@ -12,8 +12,8 @@
 //const configPath=path.join(schUtilitiesProjectRoot, 'configs','instanceSpecific', PROJECT_NAMEConfigDirName, 'systemConfig.ini')
 //const config = configFileProcessor.getConfig(configPath)['MODULE_NAME']; 
 
-// const commandLineParser = require('qtools-parse-command-line');
-// const commandLineParameters = commandLineParser.getParameters();
+const commandLineParser = require('qtools-parse-command-line');
+const commandLineParameters = commandLineParser.getParameters();
 
 const qt = require('qtools-functional-library');
 //console.dir(qt.help());
