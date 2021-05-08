@@ -23,6 +23,21 @@ If a systemConfig.ini is present, it is parsed and made available to each page. 
 
 If a directory, public, is present, it will be served instead and the parent is considered to be a siteDirectory. In this case, it is expected that a systemConfig.ini and additional code directories will also be present in the siteDirectory although they are not required.
 
+**QUICK START**
+
+Until I get it ready to publish on npm…
+
+1) clone the repo
+2) make a directory (docRoot) containing index.html
+3) node path/to/fs-lightning/startAll.js PATH/TO/docRoot
+4) visit http://localhost:8080
+
+You can then add a node module, say, test.js, that exports a function that like moduleFunc=function(request, response, systemData)=>res.send(‘hello world’);
+
+Visit it with http://localhost:8080/test (fs-lighting will deal with the .js).
+
+Make a directory containing index.html.
+
 **OPTIONS**
 
 *(Note: Command line options are specified according to  qtools-parse-command-line. Especially, a double-hyphen specifies a flag that takes a value not an alias of a short flag. All flags must be specified before files. Flags that take values can be joined to the value (sometimes a comma-separated list) with an equal sign or a space.)*
