@@ -23,7 +23,7 @@ If a systemConfig.ini is present, it is parsed and made available to each page. 
 
 If a directory, public, is present, it will be served instead and the parent is considered to be a siteDirectory. In this case, it is expected that a systemConfig.ini and additional code directories will also be present in the siteDirectory although they are not required.
 
-OPTIONS
+**OPTIONS**
 
 *(Note: Command line options are specified according to  qtools-parse-command-line. Especially, a double-hyphen specifies a flag that takes a value not an alias of a short flag. All flags must be specified before files. Flags that take values can be joined to the value (sometimes a comma-separated list) with an equal sign or a space.)*
 
@@ -32,6 +32,6 @@ Flags specified in the command line take precedence over those specified in syst
 —\-port=VALUE	The port the system will listen to. (Default is 80.)
 
 
-EXAMPLES
+**EXAMPLES**
 
 Jsl —\-port=8080
