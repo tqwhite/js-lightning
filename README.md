@@ -28,18 +28,21 @@ If a directory, public, is present, it will be served instead and the parent is 
 
 **QUICK START**
 
-Until I get it ready to publish on npm…
 
-1) clone the repo
-2) make a directory (docRoot) containing index.html
-3) node path/to/fs-lightning/startAll.js PATH/TO/docRoot
-4) visit http://localhost:7000
+1) make project directory and install (**npm install js-lightning**)
 
-You can then add a node module, say, test.js, that exports a function that like moduleFunc=function({request, response, userConfig})=>response.send(‘hello world’);
+2) make another directory (siteDirectory) containing index.html
 
-Visit it with http://localhost:7000/test (fs-lighting will deal with the .js).
+3) node path/to/fs-lightning/startAll.js *path/to*/siteDirectory
 
-Make a directory containing index.html.
+4) visit http://localhost:7000/index.html
+
+You can then add a node module, say, test.js, that exports a function like 
+
+module.exports=({req, res, userConfiguration})=>res.send('hello world');
+
+Visit it with http://localhost:7000/test.js
+
 
 **OPTIONS**
 
@@ -52,4 +55,4 @@ Flags specified in the command line take precedence over those specified in syst
 
 **EXAMPLES**
 
-Jsl —\-port=7000
+Jsl —\-port=7000**
