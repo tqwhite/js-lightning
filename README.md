@@ -39,7 +39,7 @@ If a directory, public, is present, it will be served instead and the parent is 
 
 You can then add a node module, say, test.js, that exports a function like 
 
-module.exports=({req, res, userConfiguration})=>res.send('hello world');
+`module.exports=({req, res, userConfiguration})=>res.send('hello world’);`
 
 Visit it with http://localhost:7000/test.js
 
