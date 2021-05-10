@@ -35,7 +35,7 @@ Until I get it ready to publish on npm…
 3) node path/to/fs-lightning/startAll.js PATH/TO/docRoot
 4) visit http://localhost:7000
 
-You can then add a node module, say, test.js, that exports a function that like moduleFunc=function(request, response, systemData)=>res.send(‘hello world’);
+You can then add a node module, say, test.js, that exports a function that like moduleFunc=function({request, response, userConfig})=>response.send(‘hello world’);
 
 Visit it with http://localhost:7000/test (fs-lighting will deal with the .js).
 
