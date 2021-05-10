@@ -33,11 +33,11 @@ Until I get it ready to publish on npm…
 1) clone the repo
 2) make a directory (docRoot) containing index.html
 3) node path/to/fs-lightning/startAll.js PATH/TO/docRoot
-4) visit http://localhost:8080
+4) visit http://localhost:7000
 
 You can then add a node module, say, test.js, that exports a function that like moduleFunc=function(request, response, systemData)=>res.send(‘hello world’);
 
-Visit it with http://localhost:8080/test (fs-lighting will deal with the .js).
+Visit it with http://localhost:7000/test (fs-lighting will deal with the .js).
 
 Make a directory containing index.html.
 
@@ -47,9 +47,9 @@ Make a directory containing index.html.
 
 Flags specified in the command line take precedence over those specified in systemConfig.ini (if any).
 
-—\-port=VALUE	The port the system will listen to. (Default is 8080.)
+—\-port=VALUE	The port the system will listen to. (Default is 7000.)
 
 
 **EXAMPLES**
 
-Jsl —\-port=8080
+Jsl —\-port=7000

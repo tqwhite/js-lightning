@@ -1,6 +1,6 @@
 {
   "name": "js-lightning",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Direct Javascript to Web interpreted server inspired by PHP",
   "main": "startAll.js",
   "scripts": {
@@ -13,10 +13,11 @@
   "keywords": [
     "javascript",
     "php",
-    "intepreted",
+    "interpreted",
     "html",
     "web",
-    "server"
+    "server",
+    "dynamic"
   ],
   "author": "TQ White II",
   "license": "The MIT License",
