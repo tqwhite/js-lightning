@@ -1,5 +1,5 @@
 
-***IMPORTANT NOTE: This is entirely aspirational. It does not yet work at all.***
+***IMPORTANT NOTE: Much of this is aspirational. This is in development. The quick start works. It serves .js modules, not directories, and most normal web stuff. -help flag features are implemented. Definitely do that.***
 
 # js-lightning
  Direct Javascript to Web interpreted server inspired by PHP
@@ -33,7 +33,7 @@ If a directory, public, is present, it will be served instead and the parent is 
 
 2) make another directory (siteDirectory) containing index.html
 
-3) node path/to/fs-lightning/startAll.js *path/to*/siteDirectory
+3) node path/to/system/code/startAll.js *path/to*/siteDirectory
 
 4) visit http://localhost:7000/index.html
 
@@ -42,6 +42,12 @@ You can then add a node module, say, test.js, that exports a function like
 `module.exports=({req, res, userConfiguration})=>res.send('hello world’);`
 
 Visit it with http://localhost:7000/test.js
+
+Use 
+
+`node path/to/system/code/startAll.js -help `
+
+for current features.
 
 
 **OPTIONS**

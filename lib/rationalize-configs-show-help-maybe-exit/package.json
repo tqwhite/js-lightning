@@ -1,0 +1,14 @@
+{
+  "name": "rationalize-configs-show-help-maybe-exit",
+  "version": "1.0.0",
+  "description": "examine all configuration sources (command line, systemConfig.ini, environment), validate, show help if needed, quit if necessary, return rationalized 'userConfig' if all is well",
+  "main": "rationalize-configs-show-help-maybe-exit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TQ White II",
+  "license": "ISC",
+  "dependencies": {
+    "qtools-parse-command-line": "^1.0.5"
+  }
+}

@@ -20,7 +20,7 @@ const qt = require('qtools-functional-library');
 
 const moduleFunction = function() {
 	 
-	const userConfiguration = require('./lib/validate-flags-show-help-maybe-exit');
+	const userConfiguration = require('./lib/rationalize-configs-show-help-maybe-exit');
 
 	if (
 		!['command1', 'command2'].includes(userConfiguration.siteDirectory)
