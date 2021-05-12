@@ -1,5 +1,6 @@
 
-***IMPORTANT NOTE: Much of this is aspirational. This is in development. The quick start works. It serves .js modules, not directories, and most normal web stuff. -help flag features are implemented. Definitely do that.***
+***IMPORTANT NOTE: Much of this is aspirational. This is in development. The quick start works. 
+It serves node modules both as .js files and in directories (with package.json). Also, most normal web stuff. -help flag features are implemented. Definitely do that.***
 
 # js-lightning
  Direct Javascript to Web interpreted server inspired by PHP
