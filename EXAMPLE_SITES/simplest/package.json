@@ -1,0 +1,16 @@
+{
+  "name": "site-directory",
+  "version": "1.0.0",
+  "description": "demo website for js-lightning",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TQ White II",
+  "license": "ISC",
+  "dependencies": {
+    "qtools-config-file-processor": "^1.0.8",
+    "qtools-functional-library": "^1.1.4",
+    "qtools-parse-command-line": "^1.0.5"
+  }
+}

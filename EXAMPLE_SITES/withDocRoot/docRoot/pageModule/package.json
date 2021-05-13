@@ -1,0 +1,11 @@
+{
+  "name": "pagemodule",
+  "version": "1.0.0",
+  "description": "demonstrate using a module directory as servable page",
+  "main": "pageModule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TQ White II",
+  "license": "ISC"
+}

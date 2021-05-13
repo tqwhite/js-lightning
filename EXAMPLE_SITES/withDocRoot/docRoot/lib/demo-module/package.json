@@ -1,0 +1,11 @@
+{
+  "name": "demo-module",
+  "version": "1.0.0",
+  "description": "to remind everyone that this siteDirectory structure allows a lib folder with modules",
+  "main": "demo-module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TQ White II",
+  "license": "ISC"
+}
