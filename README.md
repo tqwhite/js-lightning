@@ -83,6 +83,21 @@ Things that work:
 * DocRoot is automatically set to siteDirectory/docRoot if docRoot is present. Otherwise, docRoot==siteDirectory.
 * EXAMPLE_SITES exists and has README.
 
+**FAQ**
+
+Q: Where is the tutorial?
+
+A: Here it is:
+
+1. Make a directory. Activate js-lightning on it (here’s the command `js-lightning path/to/dir`). 
+
+2. Save a Javascript file containing `module.exports=({req, res, userConfiguration})=>res.send('hello world’);` 
+
+3. Have fun.
+
+Q: What if I want to have a normal web page?
+
+A: 
 
 **ROADMAP**
 
@@ -99,5 +114,9 @@ Add ‘-\-createSystemd=filePath’ to generate a system (also launchctl) unit d
 Add interpreter support for markdown files so they are converted to html.
 
 Add html template mechanism so that interpreted results can be embedded in html automatically, especially markdown.
+
+Add routing.
+
+Add restart all processes signal.
  
 
