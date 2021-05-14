@@ -82,6 +82,8 @@ Things that work:
 * Specification of siteDirectory based on flag (-\-SiteDirectory), file path in command line (jsl path/to/dir) and from the current working directory when nothing else is specified.
 * DocRoot is automatically set to siteDirectory/docRoot if docRoot is present. Otherwise, docRoot==siteDirectory.
 * EXAMPLE_SITES exists and has README.
+* A configuration file (default name ‘systemParameters.ini’) can be placed in the siteDirectory. It can specify any of the parameters that can be specified on the command line (if they are also specified on the command line, that takes precedence). 
+* The configuration file can be located outside of a siteDirectory and specified with the -\-configDirectoryPath parameter. This takes precedence over any default config file location.
 
 **FAQ**
 
