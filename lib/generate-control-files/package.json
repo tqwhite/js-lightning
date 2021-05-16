@@ -1,0 +1,14 @@
+{
+  "name": "generate-control-files",
+  "version": "1.0.0",
+  "description": "Creates control files for nginx, etc",
+  "main": "generate-control-files.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TQ White II",
+  "license": "ISC",
+  "dependencies": {
+    "qtools-template-replace-for-files": "^1.0.0"
+  }
+}

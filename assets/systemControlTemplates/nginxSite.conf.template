@@ -1,0 +1,12 @@
+
+# ngensite tqwhite.com
+
+server {
+	listen 80 ;
+	server_name <!domain!>;
+
+	location ~ / {
+		proxy_pass_request_headers      on;
+		proxy_pass http://<!domain!>:<!port!>;
+	}
+}

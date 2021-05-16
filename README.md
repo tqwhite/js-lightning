@@ -56,11 +56,11 @@ for current features.
 
 Flags specified in the command line take precedence over those specified in systemConfig.ini (if any).
 
-—\-port=VALUE	The port the system will listen to. (Default is 7000.)
+-\-help is the place to look for command line options
 
 **EXAMPLES**
 
-jsl —\-port=7000
+Js-lightning —\-port=7000
 
 ___
 
@@ -79,11 +79,12 @@ Things that work:
 * Plain HTML
 * Static served Javascript.
 * Automatic inclusion of new pages without restart
-* Specification of siteDirectory based on flag (-\-SiteDirectory), file path in command line (jsl path/to/dir) and from the current working directory when nothing else is specified.
+* Specification of siteDirectory based on flag (-\-SiteDirectory), file path in command line (js-lightning path/to/dir) and from the current working directory when nothing else is specified.
 * DocRoot is automatically set to siteDirectory/docRoot if docRoot is present. Otherwise, docRoot==siteDirectory.
 * EXAMPLE_SITES exists and has README.
 * A configuration file (default name ‘systemParameters.ini’) can be placed in the siteDirectory. It can specify any of the parameters that can be specified on the command line (if they are also specified on the command line, that takes precedence). 
 * The configuration file can be located outside of a siteDirectory and specified with the -\-configDirectoryPath parameter. This takes precedence over any default config file location.
+* -generateControlFiles files works
 
 **FAQ**
 
@@ -99,19 +100,11 @@ A: Here it is:
 
 Q: What if I want to have a normal web page?
 
-A: 
+A: Have one. All non-JS (and soon to be non-markdown) pages are just passed on through. JS pages in a directory with the string ‘static’ in its name are passed through, too.
 
 **ROADMAP**
 
 *(Not in order.)*
-
-Implement systemParameters.ini with specs for all command line flags.
-
-Add ‘-installJsl’ option to execute `ln -s path/to/js-lightning /usr/local/bin/jsl` for convenient usage.
-
-Add ‘—\-createNginxConf=filePath’ to generate an nginx clause to serve the site referenced.
-
-Add ‘-\-createSystemd=filePath’ to generate a system (also launchctl) unit definition to keep js-lightning running for the site referenced.
 
 Add interpreter support for markdown files so they are converted to html.
 
@@ -120,5 +113,14 @@ Add html template mechanism so that interpreted results can be embedded in html 
 Add routing.
 
 Add restart all processes signal.
+
+Figure out npm mechanism to install `ln -s path/to/js-lightning /usr/local/bin/js-lightning` for convenient usage.
+ateControlFiles; automatically creates all control files.)*
+
+
+DONE Add generate scripts to deploy nginx, systems, etc
+
+DONE Implement systemParameters.ini with specs for all command line flags.
+
  
 

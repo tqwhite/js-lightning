@@ -25,6 +25,8 @@ module.exports=({req, res, userConfiguration})=>res.send(`
 
 	Hello World
 	
+	${new Date().toLocaleString()}
+	
 </body>
 
 <script type='text/javascript'>

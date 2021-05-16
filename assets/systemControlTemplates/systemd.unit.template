@@ -1,0 +1,11 @@
+[Unit]
+Description=js-lightning endpoint: <!domain!>
+After=network.target
+
+[Service]
+Restart=on-failure
+ExecStart=node /usr/lib/node_modules/js-lightning/startAll.js --siteDirectory=<!siteDirectory!> --port=<!port!>
+
+
+[Install]
+WantedBy=multi-user.target
