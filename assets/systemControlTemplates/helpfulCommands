@@ -1,0 +1,25 @@
+
+
+sudo ln -s <!outputDirectoryPath!>/<!domain!>/nginxSite.conf /etc/nginx/sites-enabled/<!domain!>.conf
+sudo ln -s <!outputDirectoryPath!><!outputDirectoryPath>/<!domain!>/systemd.service /etc/systemd/system/<!domain!>.service
+
+systemctl restart nginx 
+
+curl http://localhost:<!port!>
+curl http://<!externalIp!>:<!port!>
+curl http://<!domain!>:<!port!>
+
+sudo systemctl list-unit-files | grep <!domain!>
+
+sudo systemctl start <!domain!>.service
+
+sudo systemctl status <!domain!>.service
+
+sudo systemctl enable <!domain!>.service #enabled means service is started on reboot
+
+
+sudo systemctl daemon-reload #changes to systemd.service DO NOT TAKE EFFECT until this has been run
+
+#CLEANUP IF YOU ARE DEBUGGING
+sudo rm /etc/nginx/sites-enabled/<!domain!>.conf
+sudo rm /etc/systemd/system/<!domain!>.service

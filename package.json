@@ -1,6 +1,6 @@
 {
   "name": "js-lightning",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Direct Javascript to Web interpreted server inspired by PHP",
   "main": "startAll.js",
   "scripts": {

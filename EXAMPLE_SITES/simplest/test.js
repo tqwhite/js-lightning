@@ -6,7 +6,6 @@ const qt = require('qtools-functional-library');
 
 const moduleFunction = function({ req, res, callback = () => {} }) {
 	const demoPageName = 'index.html';
-	const EXAMPLE_SITES = __filename.match(/EXAMPLE_SITES\/(.*?)\//)[1];
 
 	const output = `
 HELLO: ${new Date().toLocaleString()}<br>
