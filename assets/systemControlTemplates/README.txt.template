@@ -5,6 +5,7 @@
 sudo rm /etc/nginx/sites-enabled/<!domain!>.conf
 sudo rm /etc/systemd/system/<!domain!>.service
 
+sudo systemctl stop <!domain!>.service
 
 #EXECUTE THESE TO WIRE INTO THE OPERATING SYSTEM
 

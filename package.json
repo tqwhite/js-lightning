@@ -1,10 +1,11 @@
 {
   "name": "js-lightning",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Direct Javascript to Web interpreted server inspired by PHP",
   "main": "startAll.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall":"ln -s /usr/lib/node_modules/js-lightning/startAll.js /usr/bin/js-lightning; chmod +x /usr/lib/node_modules/js-lightning/startAll.js; echo 'added  /usr/bin/js-lightning';"
   },
   "repository": {
     "type": "git",
