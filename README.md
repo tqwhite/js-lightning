@@ -13,7 +13,7 @@ js-lightning -\-help *(for many more options)*
 
 **DESCRIPTION**
 
-js-lightning presents a website instantly. All the behind the scenes wiring is done automatically to allow http access to a directory of web files. 
+js-lightning presents a website instantly. All the behind the scenes wiring is done automatically to allow http access to a directory of web files. Files added or changed are available without restart.
 
 **USAGE**
 
