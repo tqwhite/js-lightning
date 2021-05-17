@@ -5,7 +5,7 @@
 
 js-lightning *(invoked from within a directory containing website files)*
 
-js-lightning -port=80 —siteDirectory /path/to/siteDirectory
+js-lightning -\-port=80 —siteDirectory /path/to/siteDirectory
 
 js-lightning -generateControlFiles -\-domain=something.com
 
@@ -19,11 +19,13 @@ js-lightning presents a website instantly. All the behind the scenes wiring is d
 
 The simplest usage (and one that is completely valid) is to navigate to a directory that has web pages (.html) or apps (.js) and type `js-lightning`. This will publish that directory as a website on the default port, 7000.
 
-By default, the file paths map one-to-one with the structure of the directory with the exception that js-lightning does not require a file extension for .js files. It also understands Node module directories and treats them as if they were files.
+By default, the file paths map one-to-one with the structure of the directory with the exception that js-lightning does not require a file extension for .js files. It also understands Node module directories. They are evaluated and served as if they were files.
 
-If a file has a usual HTML extension, it is served as normal (using expressjs static routing). If the path points to a ‘path/filename.js’ or to a module ‘path/moduleDirName’, js-lightning treats it as a dynamic element.
+If a file has a usual HTML extension (.html, .png, etc), it is served as normal (using expressjs static routing). If the path points to a ‘path/filename.js’ or to a module ‘path/moduleDirName’, js-lightning treats it as a dynamic element.
 
-To support javascript front-end script elements, js-lightning will not interpret .js files contained in any directory that has the string `static` in it. This can be used, for example, to add jQuery to a page.
+To support javascript front-end script elements, js-lightning will not interpret .js files contained in any directory that has the string `static` in it. This can be used, for example, to add .../staticAssets/jQuery.js to a page. 
+
+The siteDirectory can contain a directory called `docRoot`. If this is present, files will be served from here instead. Files that should not be served directly (node_modules, RSA keys, etc) can be placed in siteDirectory and be accessible to pages/apps being served.
 
 **PROGRAMMING**
 
@@ -31,14 +33,11 @@ Dynamic elements are provided with the usual request and response objects and ar
 
 In addition to request and response, each dynamic page is provided with a system object that contains utilities and other system access tools including any site specific configuration and utility elements.
 
-The simplest use case is when js-lightning is invoked with a path to docRoot containing no ‘systemConfig.ini’. In this case, jsl serves the contents of that directory on port 80. New files added to the directory do not require a restart.
+The simplest use case is when js-lightning is invoked with a path to docRoot containing no ‘systemConfig.ini’. In this case, js-lightning serves the contents of that directory on the default port 7000. New files added to the directory do not require a restart.
 
-If a systemConfig.ini is present, it is parsed and made available to each page. There are (will be) js-lightning specific parameters (eg, port), most of which will be static counterparts to command line flags.
-
-If a directory, public, is present, it will be served instead and the parent is considered to be a siteDirectory. In this case, it is expected that a systemConfig.ini and additional code directories will also be present in the siteDirectory although they are not required.
+If a systemConfig.ini is present, it is parsed and made available to each page. Any parameter specified with a command line flag (eg, -\-port) can be specified in systemConfig.ini. It can also be used for custom parameters. The entire systemParameters object is provided to dynamic pages.
 
 **QUICK START**
-
 
 1) make project directory and install (**npm install js-lightning**)
 
