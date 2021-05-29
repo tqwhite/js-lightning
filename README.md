@@ -27,6 +27,21 @@ To support javascript front-end script elements, js-lightning will not interpret
 
 The siteDirectory can contain a directory called `docRoot`. If this is present, files will be served from here instead. Files that should not be served directly (node_modules, RSA keys, etc) can be placed in siteDirectory and be accessible to pages/apps being served.
 
+**INSTALLATION NOTE**
+
+I have not yet figured out how to get npm to install a symbolic link for the $PATH. Embarassing but it's true. For now, you need to do those finishing steps yourself. I use MacOS and Ubuntu. Here are commands that will accomplish the needed actions.
+
+Ubuntu
+
+	ln -s /usr/local/lib/node_modules/js-lightning/startAll.js /usr/local/bin/js-lightning
+	chmod +x /usr/local/lib/node_modules/js-lightning/startAll.js
+
+MacOS
+
+ 	ln -s /Users/tqwhite/Documents/webdev/jsLightning/system/code/startAll.js /usr/local/bin/js-lightning
+ 	chmod +x /Users/tqwhite/Documents/webdev/jsLightning/system/code/startAll.js
+
+
 **PROGRAMMING**
 
 Dynamic elements are provided with the usual request and response objects and are expected to calculate their own HTML and headers and to send those to the web browser. No callback is provided. Each page is the final step in the request processing.
