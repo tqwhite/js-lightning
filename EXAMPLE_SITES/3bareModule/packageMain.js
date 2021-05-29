@@ -1,3 +1,14 @@
+#!/usr/local/bin/node
+'use strict';
+const qt = require('qtools-functional-library');
+
+//START OF moduleFunction() ============================================================
+
+const moduleFunction = function({ req, res, callback = () => {} }) {
+	const demoPageName = 'index.html';
+	
+
+	const output = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,19 +33,21 @@
 </head>
 <body>
 
-	Hello World
+	Hello from 3bareModule/packageMain.js ('main' property in package.josn)<br>
+	<br>
+HELLO: ${new Date().toLocaleString()}<br>
+from: ${req.path} in ${__filename}<br>
+feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
 	
 </body>
 
 <script type='text/javascript'>
 	/* <![CDATA[ */
 
-	const ready = callback => {
+	(callback => {
 		if (document.readyState != 'loading') callback();
 		else document.addEventListener('DOMContentLoaded', callback);
-	};
-
-	ready(() => {
+	})(() => {
 		
 		const body=document.getElementsByTagName('body');
 		
@@ -51,7 +64,7 @@
 		document.body.appendChild(element);
 		document.body.appendChild(element2);
 
-	});
+	}); //immediate call, unnamed arrow function
 
 
 	
@@ -59,3 +72,12 @@
 </script>
 
 </html>
+`;
+	
+	res.send(output);
+};
+
+//END OF moduleFunction() ============================================================
+
+module.exports = args => new moduleFunction(args);
+

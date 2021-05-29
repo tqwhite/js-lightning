@@ -1,0 +1,1 @@
+module.exports=({req, res, userConfiguration})=>res.send('hello from 3bareModule/testSimple.js (named in URL)');

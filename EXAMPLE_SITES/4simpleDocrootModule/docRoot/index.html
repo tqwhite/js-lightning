@@ -1,15 +1,3 @@
-#!/usr/local/bin/node
-'use strict';
-const qt = require('qtools-functional-library');
-
-//START OF moduleFunction() ============================================================
-
-const moduleFunction = function({ req, res, callback = () => {} }) {
-	const demoPageName = 'index.html';
-	
-	const moduleDemo=require('./lib/demo-module');
-
-	const output = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,22 +22,19 @@ const moduleFunction = function({ req, res, callback = () => {} }) {
 </head>
 <body>
 
-	Hello World<br>
-	<br>
-HELLO: ${new Date().toLocaleString()}<br>
-from: ${req.path} in ${__filename}<br>
-moduleDemo: ${moduleDemo}<br>
-feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
+	Hello from 4simpleDocrootModule/index.html (named in URL)
 	
 </body>
 
 <script type='text/javascript'>
 	/* <![CDATA[ */
 
-	(callback => {
+	const ready = callback => {
 		if (document.readyState != 'loading') callback();
 		else document.addEventListener('DOMContentLoaded', callback);
-	})(() => {
+	};
+
+	ready(() => {
 		
 		const body=document.getElementsByTagName('body');
 		
@@ -66,7 +51,7 @@ feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
 		document.body.appendChild(element);
 		document.body.appendChild(element2);
 
-	}); //immediate call, unnamed arrow function
+	});
 
 
 	
@@ -74,12 +59,3 @@ feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
 </script>
 
 </html>
-`;
-	
-	res.send(output);
-};
-
-//END OF moduleFunction() ============================================================
-
-module.exports = args => new moduleFunction(args);
-

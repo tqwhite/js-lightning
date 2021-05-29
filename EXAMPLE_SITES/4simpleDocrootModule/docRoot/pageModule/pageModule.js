@@ -1,15 +1,4 @@
-#!/usr/local/bin/node
-'use strict';
-const qt = require('qtools-functional-library');
-
-//START OF moduleFunction() ============================================================
-
-const moduleFunction = function({ req, res, callback = () => {} }) {
-	const demoPageName = 'index.html';
-	
-	const moduleDemo=require('./lib/demo-module');
-
-	const output = `
+module.exports=({req, res, userConfiguration})=>res.send(`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +8,7 @@ const moduleFunction = function({ req, res, callback = () => {} }) {
 	
 	<title>Template Page Title</title>
 	
-	<!--<script   src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+	<script   src="staticAssets/forScriptTag.js"></script> 
 	<!--link rel='stylesheet' type='text/css' href='css/main.css' /-->
 	
 	<style type='text/css'><!--
@@ -34,12 +23,9 @@ const moduleFunction = function({ req, res, callback = () => {} }) {
 </head>
 <body>
 
-	Hello World<br>
-	<br>
-HELLO: ${new Date().toLocaleString()}<br>
-from: ${req.path} in ${__filename}<br>
-moduleDemo: ${moduleDemo}<br>
-feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
+	Hello from 4simpleDocrootModule/docRoot/pageModule/pageModule.js (demonstrates accessing submodules)
+	
+	${new Date().toLocaleString()}
 	
 </body>
 
@@ -58,7 +44,7 @@ feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
 		element.style.margin='10px 0px 10px 0px';
 		element.style.padding='10px 0px 10px 0px';
 		element.style.borderTop='1pt solid blue';
-		element.textContent='Thanks for visiting!';
+		element.textContent='Thanks for visiting.';
 
 		var element2 = document.createElement("div");
 		element2.innerHTML="<div style='color:orange;'>Y'all come back now, hear!!</div>";
@@ -74,12 +60,5 @@ feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
 </script>
 
 </html>
-`;
-	
-	res.send(output);
-};
 
-//END OF moduleFunction() ============================================================
-
-module.exports = args => new moduleFunction(args);
-
+`);

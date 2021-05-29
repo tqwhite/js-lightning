@@ -17,6 +17,8 @@ js-lightning presents a website instantly. All the behind the scenes wiring is d
 
 **USAGE**
 
+*IMPORTANT: This tool is not mature. It is still under active development. I am very, very reluctant about breaking changes ever but I know of at least one I need to do soon. FYI, tqii*
+
 The simplest usage (and one that is completely valid) is to navigate to a directory that has web pages (.html) or apps (.js) and type `js-lightning`. This will publish that directory as a website on the default port, 7000.
 
 By default, the file paths map one-to-one with the structure of the directory with the exception that js-lightning does not require a file extension for .js files. It also understands Node module directories. They are evaluated and served as if they were files.
@@ -106,6 +108,7 @@ Things that work:
 * A configuration file (default name ‘systemParameters.ini’) can be placed in the siteDirectory. It can specify any of the parameters that can be specified on the command line (if they are also specified on the command line, that takes precedence). 
 * The configuration file can be located outside of a siteDirectory and specified with the -\-configDirectoryPath parameter. This takes precedence over any default config file location.
 * -generateControlFiles files works
+* --defaultPageNameList specifies a new list of file names to use if none is provided in the URL. Default is `index, index.js, index.html`. Eg,  `--defaultPageNameList=main.js,main.html` (no spaces in list)
 
 **FAQ**
 
@@ -138,7 +141,11 @@ Add restart all processes signal.
 Figure out npm mechanism to install `ln -s path/to/js-lightning /usr/local/bin/js-lightning` for convenient usage.
 ateControlFiles; automatically creates all control files.)*
 
-Add get valid pages list system function
+Add show valid pages list system function
+
+Add a -useModuleCache if the project is mature and you are willing to restart to have the system reflect changes in code. New pages/apps will still be recognized.
+
+Add a unix signal to force page/app reload (clear cache) if -useModuleCache is on without interruption other processing.
 
 DONE Add generate scripts to deploy nginx, systems, etc
 

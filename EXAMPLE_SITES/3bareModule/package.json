@@ -1,8 +1,8 @@
 {
-  "name": "site-directory",
+  "name": "bare-module-demo",
   "version": "1.0.0",
   "description": "demo website for js-lightning",
-  "main": "test.js",
+  "main": "packageMain.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

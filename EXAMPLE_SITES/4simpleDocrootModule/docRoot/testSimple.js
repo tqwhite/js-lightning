@@ -1,0 +1,1 @@
+module.exports=({req, res, userConfiguration})=>res.send('hello from 4simpleDocrootModule/testSimple.js (named in URL)');
