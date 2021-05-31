@@ -8,9 +8,9 @@
 
 I realized that is very brittle and requires users to get my names right. The signature is now position parameters. EG...
 
-OLD: `module.exports=`**({req, res, jslObject})**`=>res.send('hello world’);`
+OLD: `module.exports=`**({req, res, jslScope})**`=>res.send('hello world’);`
 
-NEW: `module.exports=`**(req, res, jslObject)**`=>res.send('hello world’);`
+NEW: `module.exports=`**(req, res, jslScope)**`=>res.send('hello world’);`
 
 ---
 
@@ -77,7 +77,7 @@ If a systemConfig.ini is present, it is parsed and made available to each page. 
 
 You can also add a node module, say, test.js, that exports a function like 
 
-`module.exports=(req, res, jslObject)=>res.send('hello world’);`
+`module.exports=(req, res, jslScope)=>res.send('hello world’);`
 
 Visit it with http://localhost:7000/test.js
 
@@ -108,11 +108,11 @@ Version 2.0.0: Breaking change: The page module signature has changed. It was a 
 
 I realized that is very brittle and requires users to get my names right. The signature is now position parameters. EG...
 
-OLD: `module.exports=({req, res, jslObject})=>res.send('hello world’);`
+OLD: `module.exports=({req, res, jslScope})=>res.send('hello world’);`
 
-NEW: `module.exports=(req, res, jslObject)=>res.send('hello world’);`
+NEW: `module.exports=(req, res, jslScope)=>res.send('hello world’);`
 
-Also, the third parameter, jslObject, is now defined. It provides access to configuration and the expressJs methods.
+Also, the third parameter, jslScope, is now defined. It provides access to configuration and the expressJs methods.
 
 
 ___
@@ -144,7 +144,7 @@ A: Here it is:
 
 1. Make a directory. Activate js-lightning on it (here’s the command `js-lightning path/to/dir`). 
 
-2. Save a Javascript file containing `module.exports=(req, res, jslObject)=>res.send('hello world’);` 
+2. Save a Javascript file containing `module.exports=(req, res, jslScope)=>res.send('hello world’);` 
 
 3. Have fun.
 

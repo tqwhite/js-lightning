@@ -4,10 +4,9 @@ const qt = require('qtools-functional-library');
 
 //START OF moduleFunction() ============================================================
 
-const moduleFunction = function(req, res, jslObject) {
+const moduleFunction = function(req, res, jslScope) {
 	const demoPageName = 'index.html';
 	
-	const moduleDemo=require('./lib/demo-module');
 
 	const output = `
 <!DOCTYPE html>
@@ -38,7 +37,6 @@ const moduleFunction = function(req, res, jslObject) {
 	<br>
 HELLO: ${new Date().toLocaleString()}<br>
 from: ${req.path} in ${__filename}<br>
-moduleDemo: ${moduleDemo}<br>
 feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
 	
 </body>

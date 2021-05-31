@@ -2,16 +2,26 @@
 'use strict';
 
 const qt = require('qtools-functional-library');
-const path=require('path');
+const path = require('path');
+const fs = require('fs');
 
 //START OF moduleFunction() ============================================================
 
 const moduleFunction = function() {
+	const userConfiguration = require('./lib/rationalize-configs-show-help-maybe-exit');
 
-	const userConfiguration = require('./lib/rationalize-configs-show-help-maybe-exit'); 
+	const packageInfo = JSON.parse(
+		require('fs')
+			.readFileSync(path.join(path.dirname(__filename), './package.json'))
+			.toString()
+	);
 
+	userConfiguration.versionInfo = {
+		name: packageInfo.name,
+		version: packageInfo.version
+	};
 
-	 if (!userConfiguration.generateControlFiles) {
+	if (!userConfiguration.generateControlFiles) {
 		require('./lib/serve')({
 			userConfiguration
 		});
@@ -21,16 +31,21 @@ const moduleFunction = function() {
 		);
 	}
 
-
-	userConfiguration.generateControlFiles && require('./lib/generate-control-files')({
+	userConfiguration.generateControlFiles &&
+		require('./lib/generate-control-files')({
 			userConfiguration,
-			templateDirectoryPath:path.join(__dirname, 'assets', 'systemControlTemplates')
+			templateDirectoryPath: path.join(
+				__dirname,
+				'assets',
+				'systemControlTemplates'
+			)
 		});
-
 };
 
 //END OF moduleFunction() ============================================================
 
-qt.log(`\n\nJS-LIGHTNING START: ================================ ${new Date().toLocaleString()}\n\n`);
+qt.log(
+	`\n\nJS-LIGHTNING START: ================================ ${new Date().toLocaleString()}\n\n`
+);
 moduleFunction();
 

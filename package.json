@@ -1,6 +1,6 @@
 {
   "name": "js-lightning",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Direct Javascript to Web interpreted server inspired by PHP",
   "main": "startAll.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/tqwhite/js-lightning/issues"
   },
-  "homepage": "https://github.com/tqwhite/js-lightning#readme",
+  "homepage": "http://jsLightning.com",
   "dependencies": {
     "qtools-config-file-processor": "^1.0.8",
     "qtools-functional-library": "^1.1.4"

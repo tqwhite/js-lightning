@@ -1,1 +1,1 @@
-module.exports=(req, res, jslObject)=>res.send('hello world from 5configuredModuleDocrootExample');
+module.exports=(req, res, jslScope)=>res.send('hello world from 5configuredModuleDocrootExample');
