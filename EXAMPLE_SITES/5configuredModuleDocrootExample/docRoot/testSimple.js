@@ -1,1 +1,1 @@
-module.exports=({req, res, userConfiguration})=>res.send('hello world');
+module.exports=(req, res, jslObject)=>res.send('hello world from 5configuredModuleDocrootExample');

@@ -14,11 +14,17 @@ sudo systemctl stop <!domain!>.service
 ufw allow <!port!>
 
 **SERVING WITH NGINX**:
+
+sudo rm /etc/nginx/sites-enabled/<!domain!>.conf #if you have been working on this before
+
 sudo ln -s <!outputDirectoryPath!>/nginxSite.conf /etc/nginx/sites-enabled/<!domain!>.conf
 sudo systemctl restart nginx
 
 **CONNECTING TO BOOT SYSTEM**
-sudo ln -s <!outputDirectoryPath!>/systemd.service /etc/systemd/system/<!domain!>.service
+
+sudo rm etc/systemd/system/<!domain!>.service #if you have been working on this before
+
+sudo cp <!outputDirectoryPath!>/systemd.service /etc/systemd/system/<!domain!>.service
 sudo systemctl daemon-reload
 sudo systemctl start <!domain!>.service
 sudo systemctl status <!domain!>.service

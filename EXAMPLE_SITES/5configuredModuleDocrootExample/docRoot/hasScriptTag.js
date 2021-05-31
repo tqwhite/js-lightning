@@ -1,4 +1,4 @@
-module.exports=({req, res, userConfiguration})=>res.send(`
+module.exports=(req, res, jslObject)=>res.send(`
 <!DOCTYPE html>
 <html lang="en">
 <head>

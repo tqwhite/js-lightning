@@ -1,5 +1,18 @@
 
- Direct Javascript to Web interpreted server inspired by PHP
+## Direct Javascript to Web interpreted server inspired by PHP
+
+
+---
+
+5/31/21: Version 2.0.0 Breaking change: The page module signature has changed. It was a named parameters style (destructured object). 
+
+I realized that is very brittle and requires users to get my names right. The signature is now position parameters. EG...
+
+OLD: `module.exports=`**({req, res, jslObject})**`=>res.send('hello world’);`
+
+NEW: `module.exports=`**(req, res, jslObject)**`=>res.send('hello world’);`
+
+---
 
 **SYNOPSIS**
 
@@ -13,11 +26,9 @@ js-lightning -\-help *(for many more options)*
 
 **DESCRIPTION**
 
-js-lightning presents a website instantly. All the behind the scenes wiring is done automatically to allow http access to a directory of web files. Files added or changed are available without restart.
+js-lightning presents a website instantly. All the behind the scenes wiring is done automatically to allow http access to a directory of web files. Files added or changed are available without restart. It can be used for convenience or as the foundation for a production app or api.
 
 **USAGE**
-
-*IMPORTANT: This tool is not mature. It is still under active development. I am very, very reluctant about breaking changes ever but I know of at least one I need to do soon. FYI, tqii*
 
 The simplest usage (and one that is completely valid) is to navigate to a directory that has web pages (.html) or apps (.js) and type `js-lightning`. This will publish that directory as a website on the default port, 7000.
 
@@ -66,7 +77,7 @@ If a systemConfig.ini is present, it is parsed and made available to each page. 
 
 You can also add a node module, say, test.js, that exports a function like 
 
-`module.exports=({req, res, userConfiguration})=>res.send('hello world’);`
+`module.exports=(req, res, jslObject)=>res.send('hello world’);`
 
 Visit it with http://localhost:7000/test.js
 
@@ -88,6 +99,21 @@ Flags specified in the command line take precedence over those specified in syst
 **EXAMPLES**
 
 js-lightning —\-port=7500
+
+
+
+**CHANGE LOG**
+
+Version 2.0.0: Breaking change: The page module signature has changed. It was a named parameters style (destructured object). 
+
+I realized that is very brittle and requires users to get my names right. The signature is now position parameters. EG...
+
+OLD: `module.exports=({req, res, jslObject})=>res.send('hello world’);`
+
+NEW: `module.exports=(req, res, jslObject)=>res.send('hello world’);`
+
+Also, the third parameter, jslObject, is now defined. It provides access to configuration and the expressJs methods.
+
 
 ___
 
@@ -118,7 +144,7 @@ A: Here it is:
 
 1. Make a directory. Activate js-lightning on it (here’s the command `js-lightning path/to/dir`). 
 
-2. Save a Javascript file containing `module.exports=({req, res, userConfiguration})=>res.send('hello world’);` 
+2. Save a Javascript file containing `module.exports=(req, res, jslObject)=>res.send('hello world’);` 
 
 3. Have fun.
 

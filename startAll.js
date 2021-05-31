@@ -9,7 +9,8 @@ const path=require('path');
 const moduleFunction = function() {
 
 	const userConfiguration = require('./lib/rationalize-configs-show-help-maybe-exit'); 
-	
+
+
 	 if (!userConfiguration.generateControlFiles) {
 		require('./lib/serve')({
 			userConfiguration

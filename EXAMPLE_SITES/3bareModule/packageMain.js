@@ -4,7 +4,7 @@ const qt = require('qtools-functional-library');
 
 //START OF moduleFunction() ============================================================
 
-const moduleFunction = function({ req, res, callback = () => {} }) {
+const moduleFunction = function(req, res, jslObject) {
 	const demoPageName = 'index.html';
 	
 
@@ -33,7 +33,7 @@ const moduleFunction = function({ req, res, callback = () => {} }) {
 </head>
 <body>
 
-	Hello from 3bareModule/packageMain.js ('main' property in package.josn)<br>
+	Hello from 3bareModule/packageMain.js ('main' property in package.json)<br>
 	<br>
 HELLO: ${new Date().toLocaleString()}<br>
 from: ${req.path} in ${__filename}<br>
@@ -79,5 +79,5 @@ feel free to try: ${req.protocol}://${req.host}/${demoPageName}<br>
 
 //END OF moduleFunction() ============================================================
 
-module.exports = args => new moduleFunction(args);
+module.exports = moduleFunction
 

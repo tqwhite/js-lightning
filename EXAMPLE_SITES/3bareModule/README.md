@@ -14,4 +14,4 @@ http://localhost:7000/index.html
 
 http://localhost:7000/
 
-	 Hello from 3bareModule/packageMain.js ('main' property in package.josn)
+	 Hello from 3bareModule/packageMain.js ('main' property in package.json)
