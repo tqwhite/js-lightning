@@ -16,43 +16,29 @@ NEW: `module.exports=`**(req, res, jslScope)**`=>res.send('hello world’);`
 
 **SYNOPSIS**
 
-js-lightning *(invoked from within a directory containing website files)*
+jsLightning *(invoked from within a directory containing website files)*
 
-js-lightning -\-port=80 —siteDirectory /path/to/siteDirectory
+jsLightning -\-port=80 —siteDirectory /path/to/siteDirectory
 
-js-lightning -generateControlFiles -\-domain=something.com
+jsLightning -generateControlFiles -\-domain=something.com
 
-js-lightning -\-help *(for many more options)*
+jsLightning -\-help *(for many more options)*
 
 **DESCRIPTION**
 
-js-lightning presents a website instantly. All the behind the scenes wiring is done automatically to allow http access to a directory of web files. Files added or changed are available without restart. It can be used for convenience or as the foundation for a production app or api.
+jsLightning presents a website instantly. All the behind the scenes wiring is done automatically to allow http access to a directory of web files. Files added or changed are available without restart. It can be used for convenience or as the foundation for a production app or api.
 
 **USAGE**
 
-The simplest usage (and one that is completely valid) is to navigate to a directory that has web pages (.html) or apps (.js) and type `js-lightning`. This will publish that directory as a website on the default port, 7000.
+The simplest usage (and one that is completely valid) is to navigate to a directory that has web pages (.html) or apps (.js) and type `jsLightning`. This will publish that directory as a website on the default port, 7000.
 
-By default, the file paths map one-to-one with the structure of the directory with the exception that js-lightning does not require a file extension for .js files. It also understands Node module directories. They are evaluated and served as if they were files.
+By default, the file paths map one-to-one with the structure of the directory with the exception that jsLightning does not require a file extension for .js files. It also understands Node module directories. They are evaluated and served as if they were files.
 
-If a file has a usual HTML extension (.html, .png, etc), it is served as normal (using expressjs static routing). If the path points to a ‘path/filename.js’ or to a module ‘path/moduleDirName’, js-lightning treats it as a dynamic element.
+If a file has a usual HTML extension (.html, .png, etc), it is served as normal (using expressjs static routing). If the path points to a ‘path/filename.js’ or to a module ‘path/moduleDirName’, jsLightning treats it as a dynamic element.
 
-To support javascript front-end script elements, js-lightning will not interpret .js files contained in any directory that has the string `static` in it. This can be used, for example, to add .../staticAssets/jQuery.js to a page. 
+To support javascript front-end script elements, jsLightning will not interpret .js files contained in any directory that has the string `static` in it. This can be used, for example, to add .../staticAssets/jQuery.js to a page. 
 
 The siteDirectory can contain a directory called `docRoot`. If this is present, files will be served from here instead. Files that should not be served directly (node_modules, RSA keys, etc) can be placed in siteDirectory and be accessible to pages/apps being served.
-
-**INSTALLATION NOTE**
-
-I have not yet figured out how to get npm to install a symbolic link for the $PATH. Embarassing but it's true. For now, you need to do those finishing steps yourself. I use MacOS and Ubuntu. Here are commands that will accomplish the needed actions.
-
-Ubuntu
-
-	ln -s /usr/local/lib/node_modules/js-lightning/startAll.js /usr/local/bin/js-lightning
-	chmod +x /usr/local/lib/node_modules/js-lightning/startAll.js
-
-MacOS
-
- 	ln -s /usr/local/lib/node_modules/jsLightning/system/code/startAll.js /usr/local/bin/js-lightning
- 	chmod +x /usr/local/lib/node_modules/system/code/startAll.js
 
 
 **PROGRAMMING**
@@ -61,7 +47,7 @@ Dynamic elements are provided with the usual request and response objects and ar
 
 In addition to request and response, each dynamic page is provided with a system object that contains utilities and other system access tools including any site specific configuration and utility elements.
 
-The simplest use case is when js-lightning is invoked with a path to docRoot containing no ‘systemConfig.ini’. In this case, js-lightning serves the contents of that directory on the default port 7000. New files added to the directory do not require a restart.
+The simplest use case is when jsLightning is invoked with a path to docRoot containing no ‘systemConfig.ini’. In this case, jsLightning serves the contents of that directory on the default port 7000. New files added to the directory do not require a restart.
 
 If a systemConfig.ini is present, it is parsed and made available to each page. Any parameter specified with a command line flag (eg, -\-port) can be specified in systemConfig.ini. It can also be used for custom parameters. The entire systemParameters object is provided to dynamic pages.
 
@@ -98,7 +84,7 @@ Flags specified in the command line take precedence over those specified in syst
 
 **EXAMPLES**
 
-js-lightning —\-port=7500
+jsLightning —\-port=7500
 
 
 
@@ -128,7 +114,7 @@ Things that work:
 * Plain HTML
 * Static served Javascript.
 * Automatic inclusion of new pages without restart
-* Specification of siteDirectory based on flag (-\-SiteDirectory), file path in command line (js-lightning path/to/dir) and from the current working directory when nothing else is specified.
+* Specification of siteDirectory based on flag (-\-SiteDirectory), file path in command line (jsLightning path/to/dir) and from the current working directory when nothing else is specified.
 * DocRoot is automatically set to siteDirectory/docRoot if docRoot is present. Otherwise, docRoot==siteDirectory.
 * EXAMPLE_SITES exists and has README.
 * A configuration file (default name ‘systemParameters.ini’) can be placed in the siteDirectory. It can specify any of the parameters that can be specified on the command line (if they are also specified on the command line, that takes precedence). 
@@ -142,7 +128,7 @@ Q: Where is the tutorial?
 
 A: Here it is:
 
-1. Make a directory. Activate js-lightning on it (here’s the command `js-lightning path/to/dir`). 
+1. Make a directory. Activate jsLightning on it (here’s the command `jsLightning path/to/dir`). 
 
 2. Save a Javascript file containing `module.exports=(req, res, jslScope)=>res.send('hello world’);` 
 
@@ -163,9 +149,6 @@ Add html template mechanism so that interpreted results can be embedded in html 
 Add routing.
 
 Add restart all processes signal.
-
-Figure out npm mechanism to install `ln -s path/to/js-lightning /usr/local/bin/js-lightning` for convenient usage.
-ateControlFiles; automatically creates all control files.)*
 
 Add show valid pages list system function
 
