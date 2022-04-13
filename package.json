@@ -3,7 +3,9 @@
   "version": "2.0.2",
   "description": "Direct Javascript to Web interpreted server inspired by PHP",
   "main": "startAll.js",
-  "bin": "./startAll.js",
+  "bin": {
+  	"jsLightning":"./startAll.js"
+  	},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstallUNUSED":"ln -s /usr/lib/node_modules/js-lightning/startAll.js /usr/bin/js-lightning; chmod +x /usr/lib/node_modules/js-lightning/startAll.js; echo 'added  /usr/bin/js-lightning';"
