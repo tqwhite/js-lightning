@@ -1,11 +1,20 @@
 
 
+#QUICK START FILES (OPTIONAL)
+
+mkdir "<!domain!>";
+cd "<!domain!>"
+
+echo "module.exports=(req, res, jslScope)=>res.send('hello world from <!domain!>’);" > index.js
+
+
 #CLEANUP IF YOU ARE DEBUGGING
 
 sudo rm /etc/nginx/sites-enabled/<!domain!>.conf
 sudo rm /etc/systemd/system/<!domain!>.service
 
 sudo systemctl stop <!domain!>.service
+sudo ufw delete allow <!port!>
 
 #EXECUTE THESE TO WIRE INTO THE OPERATING SYSTEM
 
@@ -15,14 +24,12 @@ ufw allow <!port!>
 
 **SERVING WITH NGINX**:
 
-sudo rm /etc/nginx/sites-enabled/<!domain!>.conf #if you have been working on this before
 
 sudo ln -s <!outputDirectoryPath!>/nginxSite.conf /etc/nginx/sites-enabled/<!domain!>.conf
 sudo systemctl restart nginx
 
 **CONNECTING TO BOOT SYSTEM**
 
-sudo rm etc/systemd/system/<!domain!>.service #if you have been working on this before
 
 sudo cp <!outputDirectoryPath!>/systemd.service /etc/systemd/system/<!domain!>.service
 sudo systemctl daemon-reload
@@ -53,3 +60,6 @@ ls -la <!outputDirectoryPath!>/systemd.service
 sudo systemctl list-unit-files | grep <!domain!>
 sudo systemctl daemon-reload #changes to systemd.service DO NOT TAKE EFFECT until this has been run
 
+sudo ufw status verbose
+
+journalctl -u <!domain!> -n 300 #shows the latest 300 lines of the systemctl log for that unit

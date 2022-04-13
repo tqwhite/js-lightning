@@ -51,8 +51,8 @@ Ubuntu
 
 MacOS
 
- 	ln -s /Users/tqwhite/Documents/webdev/jsLightning/system/code/startAll.js /usr/local/bin/js-lightning
- 	chmod +x /Users/tqwhite/Documents/webdev/jsLightning/system/code/startAll.js
+ 	ln -s /usr/local/lib/node_modules/jsLightning/system/code/startAll.js /usr/local/bin/js-lightning
+ 	chmod +x /usr/local/lib/node_modules/system/code/startAll.js
 
 
 **PROGRAMMING**
