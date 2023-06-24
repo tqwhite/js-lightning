@@ -1,18 +1,8 @@
-
 ## Direct Javascript to Web interpreted server inspired by PHP
 
-
 ---
 
-5/31/21: Version 2.0.0 Breaking change: The page module signature has changed. It was a named parameters style (destructured object). 
 
-I realized that is very brittle and requires users to get my names right. The signature is now position parameters. EG...
-
-OLD: `module.exports=`**({req, res, jslScope})**`=>res.send('hello world’);`
-
-NEW: `module.exports=`**(req, res, jslScope)**`=>res.send('hello world’);`
-
----
 
 **SYNOPSIS**
 
@@ -34,20 +24,25 @@ The simplest usage (and one that is completely valid) is to navigate to a direct
 
 By default, the file paths map one-to-one with the structure of the directory with the exception that jsLightning does not require a file extension for .js files. It also understands Node module directories. They are evaluated and served as if they were files.
 
-If a file has a usual HTML extension (.html, .png, etc), it is served as normal (using expressjs static routing). If the path points to a ‘path/filename.js’ or to a module ‘path/moduleDirName’, jsLightning treats it as a dynamic element.
+If a file has a usual HTML extension (.html, .png, etc), it is served as normal (using expressjs static routing). If the path points to a ‘path/filename.js’ or to a module ‘path/moduleDirName’, jsLightning treats it as a dynamic element. The simplest example is:
+
+    module.exports=(req, res, jslScope)=>res.send('hello world');
 
 To support javascript front-end script elements, jsLightning will not interpret .js files contained in any directory that has the string `static` in it. This can be used, for example, to add .../staticAssets/jQuery.js to a page. 
 
 The siteDirectory can contain a directory called `docRoot`. If this is present, files will be served from here instead. Files that should not be served directly (node_modules, RSA keys, etc) can be placed in siteDirectory and be accessible to pages/apps being served.
 
-
 **PROGRAMMING**
 
 Dynamic elements are provided with the usual request and response objects and are expected to calculate their own HTML and headers and to send those to the web browser. No callback is provided. Each page is the final step in the request processing.
 
-In addition to request and response, each dynamic page is provided with a system object that contains utilities and other system access tools including any site specific configuration and utility elements.
+In addition to request and response, each dynamic page is provided with a system object, jslScope, that contains utilities and other system access tools including any site specific configuration and utility elements. It can be written to and used to communicate throughout the system.
 
 The simplest use case is when jsLightning is invoked with a path to docRoot containing no ‘systemConfig.ini’. In this case, jsLightning serves the contents of that directory on the default port 7000. New files added to the directory do not require a restart.
+
+However, NodeJS caches all require()'d modules. Without special care, these will not be reloaded when changed. To overcome this problem, a utility function, refreshRequire(), is delivered to the page in the jslScope object. It will delete the requested module from the cache and require() it anew. If desired, an options parameter, noRefreshNormalRequire, can be set true to suppress dynamic processing. EG,
+
+    const someModule=refreshRequire('someModule', {noRefreshNormalRequire:true})
 
 If a systemConfig.ini is present, it is parsed and made available to each page. Any parameter specified with a command line flag (eg, -\-port) can be specified in systemConfig.ini. It can also be used for custom parameters. The entire systemParameters object is provided to dynamic pages.
 
@@ -73,7 +68,6 @@ Use
 
 for current features.
 
-
 **OPTIONS**
 
 *(Note: Command line options are specified according to  qtools-parse-command-line. Especially, a double-hyphen specifies a flag that takes a value not an alias of a short flag. All flags must be specified before files. Flags that take values can be joined to the value (sometimes a comma-separated list) with an equal sign or a space.)*
@@ -86,8 +80,6 @@ Flags specified in the command line take precedence over those specified in syst
 
 jsLightning —\-port=7500
 
-
-
 **CHANGE LOG**
 
 Version 2.0.0: Breaking change: The page module signature has changed. It was a named parameters style (destructured object). 
@@ -99,7 +91,6 @@ OLD: `module.exports=({req, res, jslScope})=>res.send('hello world’);`
 NEW: `module.exports=(req, res, jslScope)=>res.send('hello world’);`
 
 Also, the third parameter, jslScope, is now defined. It provides access to configuration and the expressJs methods.
-
 
 ___
 
@@ -171,4 +162,3 @@ DONE Implement systemParameters.ini with specs for all command line flags.
 [qtools-config-file-processor](https://www.npmjs.com/package/qtools-config-file-processor)
 
 [qtools-template-replace-for-files](https://www.npmjs.com/package/qtools-template-replace-for-files)
-
