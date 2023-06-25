@@ -31,6 +31,6 @@
   "homepage": "http://jsLightning.com",
   "dependencies": {
     "qtools-config-file-processor": "^1.0.8",
-    "qtools-functional-library": "^1.1.4"
+    "qtools-functional-library": "^1.1.7"
   }
 }
