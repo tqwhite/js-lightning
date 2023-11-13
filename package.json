@@ -1,6 +1,6 @@
 {
   "name": "js-lightning",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Direct Javascript to Web interpreted server inspired by PHP",
   "main": "startAll.js",
   "bin": {
@@ -30,7 +30,6 @@
   },
   "homepage": "http://jsLightning.com",
   "dependencies": {
-    "body-parser": "^1.20.2",
     "qtools-config-file-processor": "^1.0.8",
     "qtools-functional-library": "^1.1.4"
   }

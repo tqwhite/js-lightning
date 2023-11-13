@@ -44,8 +44,8 @@ const moduleFunction = function() {
 
 //END OF moduleFunction() ============================================================
 
-qt.log(
-	`\n\nJS-LIGHTNING START: ================================ ${new Date().toLocaleString()}\n\n`
+console.log(
+	`\n\nJS-LIGHTNING START: ================================ ${new Date().toLocaleString()}`
 );
 moduleFunction();
 

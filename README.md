@@ -2,8 +2,6 @@
 
 ---
 
-
-
 **SYNOPSIS**
 
 jsLightning *(invoked from within a directory containing website files)*
@@ -68,19 +66,33 @@ Use
 
 for current features.
 
+**INITIALIZATION**
+
+An optional module can be included in the site directory called jsl-init. If it is found, it is executed after the configuration is found and before the first app.use().
+
+It's main purpose is to further initialize expressJS, eg, with body-parser. Of course, it must be installed and required.
+
+jsl-init can contribute to the rest of the system by adding to the jslScope object, which is not mutable after initialization.
+
 **OPTIONS**
 
 *(Note: Command line options are specified according to  qtools-parse-command-line. Especially, a double-hyphen specifies a flag that takes a value not an alias of a short flag. All flags must be specified before files. Flags that take values can be joined to the value (sometimes a comma-separated list) with an equal sign or a space.)*
 
 Flags specified in the command line take precedence over those specified in systemConfig.ini (if any).
 
--\-help is the place to look for command line options
+-help is the place to look for command line options (also --help)
+
+-verbose shows messages that are helpful for debugging, especially path analysis
 
 **EXAMPLES**
 
 jsLightning —\-port=7500
 
+jsLightning —\-port=7500 -verbose
+
 **CHANGE LOG**
+
+Version 2.0.7: Added verbose switch. Made jslScope immutable. Added jsl-init (add app.use() middleware; initialize jslScope).
 
 Version 2.0.0: Breaking change: The page module signature has changed. It was a named parameters style (destructured object). 
 
