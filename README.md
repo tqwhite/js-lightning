@@ -92,6 +92,8 @@ jsLightning —\-port=7500 -verbose
 
 **CHANGE LOG**
 
+Version 2.0.8, 9: Library folders (/lib/ and /node_modules/ in the path) are protected and cannot be served.
+
 Version 2.0.7: Added verbose switch. Made jslScope immutable. Added jsl-init (add app.use() middleware; initialize jslScope).
 
 Version 2.0.0: Breaking change: The page module signature has changed. It was a named parameters style (destructured object). 
