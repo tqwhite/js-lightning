@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(npm install)",
+      "Bash(timeout:*)",
+      "Bash(node:*)",
+      "Bash(rm:*)",
+      "Bash(chmod:*)",
+      "Bash(./quick-test.sh:*)"
+    ],
+    "deny": []
+  },
+  "enableAllProjectMcpServers": false
+}

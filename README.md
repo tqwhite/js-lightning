@@ -141,13 +141,13 @@ A: Here it is:
 
 Q: What if I want to have a normal web page?
 
-A: Have one. All non-JS (and soon to be non-markdown) pages are just passed on through. JS pages in a directory with the string ‘static’ in its name are passed through, too.
+A: Have one. All non-JS and (converted) Markdown pages are just passed on through. JS pages in a directory with the string ‘static’ in its name are passed through, too.
 
 **ROADMAP**
 
 *(Not in order.)*
 
-Add interpreter support for markdown files so they are converted to html.
+DONE Add interpreter support for markdown files so they are converted to html.
 
 Add html template mechanism so that interpreted results can be embedded in html automatically, especially markdown.
 
@@ -164,6 +164,10 @@ Add a unix signal to force page/app reload (clear cache) if -useModuleCache is o
 DONE Add generate scripts to deploy nginx, systems, etc
 
 DONE Implement systemParameters.ini with specs for all command line flags.
+
+**VERSIONS**
+
+v2.0.10 - added Markdown support (6/13/25)
 
 **OTHER GOOD STUFF BY [TQ WHITE II](http://tqwhite.com)**
 
