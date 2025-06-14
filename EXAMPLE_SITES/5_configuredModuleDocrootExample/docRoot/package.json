@@ -9,8 +9,8 @@
   "author": "TQ White II",
   "license": "ISC",
   "dependencies": {
-    "qtools-config-file-processor": "^1.0.8",
+    "qtools-config-file-processor": "^1.0.18",
     "qtools-functional-library": "^2.0.4",
-    "qtools-parse-command-line": "^1.0.5"
+    "qtools-parse-command-line": "^1.0.9"
   }
 }
