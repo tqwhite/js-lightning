@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "merge-deep": "^3.0.3",
-    "qtools-config-file-processor": "^1.0.8",
+    "qtools-config-file-processor": "^1.0.10",
     "qtools-parse-command-line": "^1.0.5"
   }
 }
