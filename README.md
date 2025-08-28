@@ -167,6 +167,7 @@ DONE Implement systemParameters.ini with specs for all command line flags.
 
 **VERSIONS**
 
+v2.0.18 - file name is now injected as <title> for markdown pages (8/28/25)
 v2.0.10 - added Markdown support (6/13/25)
 
 **OTHER GOOD STUFF BY [TQ WHITE II](http://tqwhite.com)**

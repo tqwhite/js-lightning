@@ -31,13 +31,16 @@ sudo systemctl restart nginx
 **CONNECTING TO BOOT SYSTEM**
 
 
+sudo ln -s <!outputDirectoryPath!>/systemd.service /etc/systemd/system/<!domain!>.service
 sudo cp <!outputDirectoryPath!>/systemd.service /etc/systemd/system/<!domain!>.service
+
 sudo systemctl daemon-reload
 sudo systemctl start <!domain!>.service
 sudo systemctl status <!domain!>.service
 
 sudo systemctl enable <!domain!>.service #enabled means service is started on reboot
 
+sudo systemctl stop <!domain!>.service
 
 #VERIFY FUNCTIONALITY WITH THESE
 
