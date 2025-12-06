@@ -34,6 +34,6 @@
     "qtools-functional-library": "^2.0.4",
     "marked": "^15.0.12",
     "express": "^5.1.0",
-    "body-parser": "^2.2.0"
+    "body-parser": "^2.2.1"
   }
 }
