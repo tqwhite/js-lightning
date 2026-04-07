@@ -102,7 +102,7 @@ jsLightning —\-port=7500 -verbose
 
 **CHANGE LOG**
 
-Version 2.1.1: Added `standardModules/` — a new directory for reusable drop-in modules that ship with jsLightning. First entry: `standardModules/directoryIndex/index.js`, a styled, collapsible directory index with a `.jslightning-index-*` marker vocabulary and optional split-view iframe mode. Also fixed `find-dynamic-page.js` so that `defaultPageNameList` applies to any directory request (not just `/`), and gated the docRoot-module fallback to the root path only. Previously, HTML-only subdirectories could silently fall through to the docRoot `package.json` main and return its placeholder output.
+Version 2.1.1: Added `standardModules/directoryIndex/index.js`. Fixed `find-dynamic-page.js` to apply `defaultPageNameList` to any directory request. Restricted docRoot-module fallback to the root path.
 
 Version 2.0.8, 9: Library folders (/lib/ and /node_modules/ in the path) are protected and cannot be served.
 
