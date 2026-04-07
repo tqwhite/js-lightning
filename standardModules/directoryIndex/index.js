@@ -7,11 +7,15 @@
  *
  * WHAT IT IS
  *   A drop-in index.js module for any directory served by jsLightning. It
- *   recursively walks the directory it lives in and renders a styled,
- *   collapsible outline of the contents. Nothing is hardcoded — it uses
- *   __dirname for the filesystem root and req.originalUrl to build
- *   absolute links that work regardless of the mount point, so the SAME
- *   file works identically in /25/, /foo/bar/, or any other location.
+ *   walks the directory it's serving and renders a styled, collapsible
+ *   outline of the contents. Nothing is hardcoded — the served directory
+ *   is computed from jslScope.configuration.docRootPath plus req.path,
+ *   which means the same file works identically when copied directly into
+ *   /25/, /foo/bar/, etc., AND when symlinked from those locations to a
+ *   single canonical install. (We deliberately avoid __dirname because
+ *   Node resolves require()'d symlinks to their real path — so a
+ *   symlinked drop-in walking __dirname would always walk its own
+ *   install directory instead of the served directory.)
  *
  * HOW TO DEPLOY
  *   1. Copy this file as index.js into the directory you want to index.
@@ -267,7 +271,25 @@ const moduleFunction = template => function (req, res, jslScope) {
 		return out;
 	};
 
-	const parentDir = __dirname;
+	// Build the base URL from the incoming request so links are absolute and
+	// portable. We want the directory that THIS index is serving, which is
+	// whatever path the request came in on, minus any trailing filename.
+	const rawUrl = (req.originalUrl || req.url || '/').split('?')[0].split('#')[0];
+	const baseUrl = rawUrl.endsWith('/')
+		? rawUrl
+		: rawUrl.substring(0, rawUrl.lastIndexOf('/') + 1);
+
+	// Determine the directory to walk. We DON'T use __dirname because Node
+	// resolves require()'d symlinks to their real path — so a symlinked
+	// drop-in would always walk its own install location instead of the
+	// directory it's serving. Instead we derive the served directory from
+	// jsLightning's docRootPath plus the request URL. This works whether
+	// the index is a direct copy in the served directory, a symlink to the
+	// canonical install, or anything else. __dirname is only used as a
+	// fallback if jslScope.configuration.docRootPath isn't available
+	// (e.g., running outside jsLightning).
+	const docRootPath = jslScope && jslScope.configuration && jslScope.configuration.docRootPath;
+	const parentDir = docRootPath ? path.join(docRootPath, baseUrl) : __dirname;
 	const entries = safe('walk', () => walk(parentDir), []);
 
 	// .jslightning-index-title, if present in THIS directory (not
@@ -284,14 +306,6 @@ const moduleFunction = template => function (req, res, jslScope) {
 		);
 		if (titleOverride === '') titleOverride = null;
 	}
-
-	// Build the base URL from the incoming request so links are absolute and
-	// portable. We want the directory that THIS index is serving, which is
-	// whatever path the request came in on, minus any trailing filename.
-	const rawUrl = (req.originalUrl || req.url || '/').split('?')[0].split('#')[0];
-	const baseUrl = rawUrl.endsWith('/')
-		? rawUrl
-		: rawUrl.substring(0, rawUrl.lastIndexOf('/') + 1);
 
 	const dirName = path.basename(parentDir) || 'root';
 	const displayTitle = titleOverride || dirName;

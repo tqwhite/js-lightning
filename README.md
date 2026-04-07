@@ -102,6 +102,8 @@ jsLightning —\-port=7500 -verbose
 
 **CHANGE LOG**
 
+Version 2.1.5: `standardModules/directoryIndex` now derives its served directory from `jslScope.configuration.docRootPath + req.path` instead of `__dirname`. This makes the index work correctly when symlinked from a served directory to the canonical install — previously the symlink case would walk the install directory instead of the served directory because Node resolves require()'d symlinks to their real path.
+
 Version 2.1.4: `standardModules/directoryIndex` now filters listed files to a fixed set of extensions (`.js`, `.html`, `.pdf`, `.md`). Other files (images, icons, binary assets) are still served when referenced but no longer clutter the outline. Subdirectories whose entire content is filtered out are pruned.
 
 Version 2.1.3: Added `.jslightning-link` file type to `standardModules/directoryIndex`. Any file ending in that suffix renders as an external link in the outline (line 1 = URL, line 2 = optional label). Cross-origin URLs open in a new tab; same-origin paths behave like ordinary links.
@@ -183,6 +185,7 @@ DONE Implement systemParameters.ini with specs for all command line flags.
 
 **VERSIONS**
 
+v2.1.5 - directoryIndex derives served directory from jslScope.configuration.docRootPath + req.path so symlinked drop-ins work. (4/7/26)
 v2.1.4 - directoryIndex filters listed files to .js/.html/.pdf/.md. Empty subdirs pruned. (4/7/26)
 v2.1.3 - added `.jslightning-link` file type to the directoryIndex standard module for listing external destinations in the outline. (4/7/26)
 v2.1.2 - added `standardModules/` directory with the reusable `directoryIndex` module. Fixed `find-dynamic-page.js` so `defaultPageNameList` applies to any directory request (not just `/`), and gated the docRoot-module fallback to the root path only — previously, HTML-only subdirectories could silently fall through to the docRoot `package.json` main, typically serving a `HELLO WORLD` placeholder. (4/7/26)
