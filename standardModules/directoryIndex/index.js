@@ -88,6 +88,11 @@
  *   - Error-resilient walk: every fs call is wrapped so a single bad
  *     entry cannot crash the index. Warnings appear in a red block.
  *   - Reusable by design: relative to __dirname and req.originalUrl.
+ *   - Content filter: only files with extensions in VISIBLE_EXTENSIONS
+ *     (default: .js, .html, .pdf, .md) are listed in the outline. Image
+ *     and binary asset files are skipped — they're still served by
+ *     jsLightning when referenced, just not enumerated. Subdirectories
+ *     whose entire content is filtered out are pruned from the outline.
  *
  * INTERNALS
  *   - walk(dirPath) returns [{type, rel, name, isLeafDir?, anchor?}, ...]
@@ -135,6 +140,14 @@ const moduleFunction = template => function (req, res, jslScope) {
 	const EXPAND_MARKER = '.jslightning-index-anyway';     // force expand (overrides entry point)
 	const ANCHOR_MARKER = '.jslightning-index-anchor-text';// override the link label
 	const LINK_SUFFIX = '.jslightning-link';               // extension for link files
+
+	// Only files with these extensions appear in the rendered outline.
+	// Other files (images, icons, fonts, binary assets) are still served
+	// by jsLightning when referenced — they just don't clutter the listing.
+	// Directories, leaf-dir links, and `.jslightning-link` files are
+	// unaffected by this filter; a directory whose entire content is filtered
+	// out is silently pruned from the outline.
+	const VISIBLE_EXTENSIONS = new Set(['.js', '.html', '.pdf', '.md']);
 
 	// Parse a .jslightning-link file. Returns { url, label } or null if the
 	// file doesn't contain a usable URL on its first non-empty line.
@@ -217,8 +230,14 @@ const moduleFunction = template => function (req, res, jslScope) {
 						anchor: klass.anchor
 					});
 				} else {
-					out.push({ type: 'dir', rel, name: item.name, anchor: klass.anchor });
-					out.push(...walk(item.full, rel));
+					// Recurse first; only emit the directory header if the
+					// recursive walk produced any visible content. This
+					// prunes empty (or fully-filtered) subdirectories.
+					const childEntries = walk(item.full, rel);
+					if (childEntries.length > 0) {
+						out.push({ type: 'dir', rel, name: item.name, anchor: klass.anchor });
+						out.push(...childEntries);
+					}
 				}
 			} else if (item.name.endsWith(LINK_SUFFIX)) {
 				// Link file — read URL + optional label.
@@ -236,7 +255,13 @@ const moduleFunction = template => function (req, res, jslScope) {
 					errors.push(`empty or invalid link file: ${rel}`);
 				}
 			} else {
-				out.push({ type: 'file', rel, name: item.name });
+				// Regular file: only show extensions in VISIBLE_EXTENSIONS.
+				// Filtered-out files are still served by jsLightning when
+				// referenced; they just don't appear in the listing.
+				const ext = path.extname(item.name).toLowerCase();
+				if (VISIBLE_EXTENSIONS.has(ext)) {
+					out.push({ type: 'file', rel, name: item.name });
+				}
 			}
 		}
 		return out;
