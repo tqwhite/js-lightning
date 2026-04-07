@@ -84,6 +84,16 @@ Flags specified in the command line take precedence over those specified in syst
 
 -verbose shows messages that are helpful for debugging, especially path analysis
 
+**STANDARD MODULES**
+
+jsLightning ships with a small library of reusable drop-in modules under `standardModules/`. Each is a single file (or directory) that can be copied into any jsLightning site to add a standard piece of functionality without wiring anything up. Drop it in, request its path, and it works.
+
+Current standard modules:
+
+* `standardModules/directoryIndex/index.js` — a styled, collapsible directory index. Copy it as `index.js` into any directory and jsLightning will serve it as that directory's landing page (per the default page name list). The index introspects `__dirname`, walks the tree, and renders a sandstone-themed outline with an optional split-view iframe mode and four `.jslightning-index-*` marker files for per-directory presentation tweaks (`-leaf`, `-anyway`, `-anchor-text`, `-title`). See the top-of-file doc block for full details and the marker vocabulary.
+
+Standard modules are intentionally self-contained — no `require`s outside Node core, no jsLightning internals — so they can be copied by hand and edited per-site if desired.
+
 **EXAMPLES**
 
 jsLightning —\-port=7500
@@ -91,6 +101,8 @@ jsLightning —\-port=7500
 jsLightning —\-port=7500 -verbose
 
 **CHANGE LOG**
+
+Version 2.1.1: Added `standardModules/` — a new directory for reusable drop-in modules that ship with jsLightning. First entry: `standardModules/directoryIndex/index.js`, a styled, collapsible directory index with a `.jslightning-index-*` marker vocabulary and optional split-view iframe mode. Also fixed `find-dynamic-page.js` so that `defaultPageNameList` applies to any directory request (not just `/`), and gated the docRoot-module fallback to the root path only. Previously, HTML-only subdirectories could silently fall through to the docRoot `package.json` main and return its placeholder output.
 
 Version 2.0.8, 9: Library folders (/lib/ and /node_modules/ in the path) are protected and cannot be served.
 
@@ -167,6 +179,7 @@ DONE Implement systemParameters.ini with specs for all command line flags.
 
 **VERSIONS**
 
+v2.1.1 - added `standardModules/` directory with the reusable `directoryIndex` module. Fixed `find-dynamic-page.js` so `defaultPageNameList` applies to any directory request (not just `/`), and gated the docRoot-module fallback to the root path only — previously, HTML-only subdirectories could silently fall through to the docRoot `package.json` main, typically serving a `HELLO WORLD` placeholder. (4/7/26)
 v2.0.18 - file name is now injected as <title> for markdown pages (8/28/25)
 v2.0.10 - added Markdown support (6/13/25)
 
