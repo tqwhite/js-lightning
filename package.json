@@ -1,10 +1,10 @@
 {
   "name": "js-lightning",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Direct Javascript to Web interpreted server inspired by PHP",
   "main": "startAll.js",
   "bin": {
-    "jsLightning": "./startAll.js"
+    "jsLightning": "startAll.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
