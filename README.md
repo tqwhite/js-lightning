@@ -102,6 +102,8 @@ jsLightning —\-port=7500 -verbose
 
 **CHANGE LOG**
 
+Version 2.1.6: `standardModules/directoryIndex` adds a substring filter input to the outline controls. Typing in the filter auto-expands the outline and hides files whose displayed label doesn't contain the query (case-insensitive). Empty directory headers are hidden too.
+
 Version 2.1.5: `standardModules/directoryIndex` now derives its served directory from `jslScope.configuration.docRootPath + req.path` instead of `__dirname`. This makes the index work correctly when symlinked from a served directory to the canonical install — previously the symlink case would walk the install directory instead of the served directory because Node resolves require()'d symlinks to their real path.
 
 Version 2.1.4: `standardModules/directoryIndex` now filters listed files to a fixed set of extensions (`.js`, `.html`, `.pdf`, `.md`). Other files (images, icons, binary assets) are still served when referenced but no longer clutter the outline. Subdirectories whose entire content is filtered out are pruned.
@@ -185,6 +187,7 @@ DONE Implement systemParameters.ini with specs for all command line flags.
 
 **VERSIONS**
 
+v2.1.6 - directoryIndex adds substring filter input; matching files stay visible, empty dirs hidden. (4/7/26)
 v2.1.5 - directoryIndex derives served directory from jslScope.configuration.docRootPath + req.path so symlinked drop-ins work. (4/7/26)
 v2.1.4 - directoryIndex filters listed files to .js/.html/.pdf/.md. Empty subdirs pruned. (4/7/26)
 v2.1.3 - added `.jslightning-link` file type to the directoryIndex standard module for listing external destinations in the outline. (4/7/26)

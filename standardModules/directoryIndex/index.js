@@ -85,6 +85,11 @@
  * FEATURES
  *   - Collapsible outline: click any directory header to toggle
  *   - "Expand all" / "Collapse all" buttons below the main toggle
+ *   - Substring filter: a search box next to the expand/collapse buttons
+ *     filters files by case-insensitive substring match on the displayed
+ *     label. While a filter is active, all directories auto-expand and
+ *     directory headers with no matching descendants are hidden. Clearing
+ *     the box restores the normal collapse state.
  *   - "Open pages here — split view" checkbox: transforms the page into
  *     a left sidebar + iframe layout. Link clicks load into the iframe
  *     instead of navigating. Preference persists in localStorage
@@ -490,6 +495,26 @@ h1 {
 .outline-controls button:hover {
 	background: var(--highlight);
 }
+.outline-controls input[type="search"] {
+	flex: 1;
+	min-width: 8rem;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 0.8rem;
+	padding: 0.3rem 0.6rem;
+	border: 1px solid var(--rule);
+	border-radius: 3px;
+	background: var(--paper);
+	color: var(--ink);
+}
+.outline-controls input[type="search"]::placeholder {
+	color: var(--muted);
+	font-style: italic;
+}
+.outline-controls input[type="search"]:focus {
+	outline: none;
+	border-color: var(--accent);
+	background: #fff8e6;
+}
 
 .stats {
 	display: flex;
@@ -619,6 +644,7 @@ footer {
 		<div class="outline-controls">
 			<button type="button" id="expandAllBtn">&#x25BE; Expand all</button>
 			<button type="button" id="collapseAllBtn">&#x25B8; Collapse all</button>
+			<input type="search" id="searchInput" placeholder="filter by name&hellip;" autocomplete="off" />
 		</div>
 
 		<div class="stats">
@@ -712,11 +738,76 @@ footer {
 
 	var expandAllBtn = document.getElementById('expandAllBtn');
 	var collapseAllBtn = document.getElementById('collapseAllBtn');
+	var searchInput = document.getElementById('searchInput');
+
+	// --- Substring search ---
+	// Filters nav-file entries by case-insensitive substring match on label.
+	// An active search auto-expands all directories, then hides any files
+	// that don't match and any directory headers whose descendants all got
+	// hidden. Clearing the search restores the normal collapse state.
+	function applySearch(query) {
+		query = (query || '').trim().toLowerCase();
+		var allFiles = Array.prototype.slice.call(document.querySelectorAll('.nav-file'));
+		var allDirs = Array.prototype.slice.call(document.querySelectorAll('.nav-dir'));
+
+		if (!query) {
+			// Clear filter: reset inline display, reapply collapse state.
+			allFiles.forEach(function (el) { el.style.display = ''; });
+			allDirs.forEach(function (el) { el.style.display = ''; });
+			applyCollapse();
+			return;
+		}
+
+		// Auto-expand all directories so the filter's view is consistent.
+		navDirs.forEach(function (d) { d.classList.remove('collapsed'); });
+
+		// Pass 1: show/hide files by label match.
+		allFiles.forEach(function (el) {
+			var label = (el.textContent || '').trim().toLowerCase();
+			el.style.display = label.indexOf(query) !== -1 ? '' : 'none';
+		});
+
+		// Pass 2: hide directory headers whose descendants are all hidden.
+		// Process in reverse DOM order so inner dirs hide before their
+		// parents check visibility of nested content.
+		var all = Array.prototype.slice.call(document.querySelectorAll('.nav-dir, .nav-file'));
+		for (var i = allDirs.length - 1; i >= 0; i--) {
+			var dir = allDirs[i];
+			var myDepth = depthOf(dir);
+			var dirIdx = all.indexOf(dir);
+			var hasVisible = false;
+			for (var j = dirIdx + 1; j < all.length; j++) {
+				var next = all[j];
+				var nextDepth = depthOf(next);
+				if (nextDepth <= myDepth) break;
+				if (next.style.display !== 'none') { hasVisible = true; break; }
+			}
+			dir.style.display = hasVisible ? '' : 'none';
+		}
+	}
+
+	if (searchInput) {
+		searchInput.addEventListener('input', function () {
+			applySearch(searchInput.value);
+		});
+	}
+
+	// Expand/Collapse buttons clear any active search first, so the button's
+	// effect is immediately visible instead of being masked by the filter.
+	function clearSearch() {
+		if (searchInput && searchInput.value) {
+			searchInput.value = '';
+			applySearch('');
+		}
+	}
+
 	if (expandAllBtn) expandAllBtn.addEventListener('click', function () {
+		clearSearch();
 		navDirs.forEach(function (d) { d.classList.remove('collapsed'); });
 		applyCollapse();
 	});
 	if (collapseAllBtn) collapseAllBtn.addEventListener('click', function () {
+		clearSearch();
 		navDirs.forEach(function (d) { d.classList.add('collapsed'); });
 		applyCollapse();
 	});
