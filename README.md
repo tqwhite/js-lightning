@@ -102,6 +102,8 @@ jsLightning —\-port=7500 -verbose
 
 **CHANGE LOG**
 
+Version 2.1.3: Added `.jslightning-link` file type to `standardModules/directoryIndex`. Any file ending in that suffix renders as an external link in the outline (line 1 = URL, line 2 = optional label). Cross-origin URLs open in a new tab; same-origin paths behave like ordinary links.
+
 Version 2.1.2: Added `standardModules/directoryIndex/index.js`. Fixed `find-dynamic-page.js` to apply `defaultPageNameList` to any directory request. Restricted docRoot-module fallback to the root path.
 
 Version 2.0.8, 9: Library folders (/lib/ and /node_modules/ in the path) are protected and cannot be served.
@@ -179,6 +181,7 @@ DONE Implement systemParameters.ini with specs for all command line flags.
 
 **VERSIONS**
 
+v2.1.3 - added `.jslightning-link` file type to the directoryIndex standard module for listing external destinations in the outline. (4/7/26)
 v2.1.2 - added `standardModules/` directory with the reusable `directoryIndex` module. Fixed `find-dynamic-page.js` so `defaultPageNameList` applies to any directory request (not just `/`), and gated the docRoot-module fallback to the root path only — previously, HTML-only subdirectories could silently fall through to the docRoot `package.json` main, typically serving a `HELLO WORLD` placeholder. (4/7/26)
 v2.0.18 - file name is now injected as <title> for markdown pages (8/28/25)
 v2.0.10 - added Markdown support (6/13/25)

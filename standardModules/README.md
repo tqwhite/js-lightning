@@ -40,6 +40,23 @@ A styled, collapsible directory index with an optional split-view iframe mode.
 | `.jslightning-index-anchor-text` | a subdirectory | Override the link/header label with the file's contents |
 | `.jslightning-index-title` | **this** directory | Override the browser tab title and page headline |
 
+**Link files** (extension-style, visible and greppable — not dotfiles):
+
+Any file whose name ends in `.jslightning-link` is rendered as an external link line item in the outline, alphabetized mingled with regular files and visually marked with a ↗ arrow.
+
+File contents:
+
+- **Line 1** — URL (required). Absolute `http(s)://` URLs open in a new tab; same-origin or path-relative URLs behave like regular file links.
+- **Line 2** — display label (optional). Defaults to the filename minus `.jslightning-link`.
+
+Example:
+
+```
+$ cat previousYear.jslightning-link
+/25/
+Previous year (2025)
+```
+
 **Features:**
 
 - Collapsible outline (click directory headers to toggle; expand-all / collapse-all buttons)

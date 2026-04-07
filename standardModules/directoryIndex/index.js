@@ -49,6 +49,26 @@
  *     subdirectories). Its trimmed contents become both the <title> and
  *     the page headline, replacing the default directory basename.
  *
+ * LINK FILES (extension-style, NOT dotfiles)
+ *
+ *   Any file whose name ends in `.jslightning-link` is rendered as an
+ *   external link line item in the outline, not as a content document.
+ *
+ *     Line 1: URL (required) — absolute http(s) URL, or a site-relative
+ *             path beginning with '/'. Empty first line → file is skipped
+ *             with a warning.
+ *     Line 2: Display label (optional) — defaults to the filename minus
+ *             the `.jslightning-link` suffix.
+ *
+ *   Cross-origin http(s) URLs open in a new tab (avoiding iframe sandbox
+ *   blocking in split-view mode). Same-origin / path-relative URLs navigate
+ *   in-page normally, or load into the split-view iframe when that mode
+ *   is active — just like regular file links.
+ *
+ *   Link files alphabetize mingled with regular files at their own
+ *   basename position, visually distinguished by a ↗ marker and italic
+ *   accent color.
+ *
  * LEAF VS EXPAND LOGIC (default, no markers)
  *   A subdirectory is rendered as a single leaf link if it contains any
  *   of: index, index.js, index.html. Otherwise it expands and its contents
@@ -114,6 +134,18 @@ const moduleFunction = template => function (req, res, jslScope) {
 	const LEAF_MARKER = '.jslightning-index-leaf';         // force collapse (opaque)
 	const EXPAND_MARKER = '.jslightning-index-anyway';     // force expand (overrides entry point)
 	const ANCHOR_MARKER = '.jslightning-index-anchor-text';// override the link label
+	const LINK_SUFFIX = '.jslightning-link';               // extension for link files
+
+	// Parse a .jslightning-link file. Returns { url, label } or null if the
+	// file doesn't contain a usable URL on its first non-empty line.
+	const parseLinkFile = (full, fallbackLabel) => {
+		const content = safe(`read ${full}`, () => fs.readFileSync(full, 'utf8'), '');
+		const lines = content.split(/\r?\n/).map(l => l.trim()).filter(l => l !== '');
+		if (lines.length === 0) return null;
+		const url = lines[0];
+		const label = lines[1] || fallbackLabel;
+		return { url, label };
+	};
 
 	// Decide whether a subdirectory should be collapsed to a single leaf link
 	// or expanded into a full recursive listing. When collapsed, we also
@@ -188,6 +220,21 @@ const moduleFunction = template => function (req, res, jslScope) {
 					out.push({ type: 'dir', rel, name: item.name, anchor: klass.anchor });
 					out.push(...walk(item.full, rel));
 				}
+			} else if (item.name.endsWith(LINK_SUFFIX)) {
+				// Link file — read URL + optional label.
+				const fallbackLabel = item.name.slice(0, -LINK_SUFFIX.length);
+				const parsed = parseLinkFile(item.full, fallbackLabel);
+				if (parsed) {
+					out.push({
+						type: 'link',
+						rel,
+						name: item.name,
+						url: parsed.url,
+						label: parsed.label
+					});
+				} else {
+					errors.push(`empty or invalid link file: ${rel}`);
+				}
 			} else {
 				out.push({ type: 'file', rel, name: item.name });
 			}
@@ -237,9 +284,19 @@ const moduleFunction = template => function (req, res, jslScope) {
 			return `<div class="nav-dir" style="--d:${d}">${escapeHtml(label)}</div>`;
 		}
 		const d = depth + 1;
+		if (e.type === 'link') {
+			// External link file. Cross-origin http(s) URLs get target="_blank"
+			// so the split-view iframe mode never tries to sandbox them (which
+			// many sites block via X-Frame-Options). Same-origin and
+			// path-relative URLs behave like ordinary file links.
+			const isCrossOrigin = /^https?:\/\//i.test(e.url);
+			const extClass = isCrossOrigin ? ' nav-linkfile-external' : '';
+			const extAttr = isCrossOrigin ? ' target="_blank" rel="noopener noreferrer"' : '';
+			return `<div class="nav-file nav-linkfile${extClass}" style="--d:${d}"><a href="${escapeHtml(e.url)}"${extAttr}>${escapeHtml(e.label)}</a></div>`;
+		}
 		if (e.isLeafDir) {
 			// A self-contained sub-site. Default label is "name/" unless the
-			// directory carries a .index-anchor-text override.
+			// directory carries a .jslightning-index-anchor-text override.
 			const href = baseUrl + e.rel;
 			const label = e.anchor ? e.anchor : `${e.name}/`;
 			return `<div class="nav-file nav-leafdir" style="--d:${d}"><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></div>`;
@@ -476,6 +533,15 @@ h1 {
 	font-style: normal;
 	color: var(--rule);
 }
+.nav-linkfile a {
+	color: var(--accent);
+	font-style: italic;
+}
+.nav-linkfile a::before {
+	content: "\\2197  ";
+	font-style: normal;
+	color: var(--rule);
+}
 
 .errors {
 	margin: 1rem 0;
@@ -543,6 +609,12 @@ footer {
 		body.classList.toggle('normal', !framed);
 		toggle.checked = framed;
 		links.forEach(function (a) {
+			// Leave explicitly-external link files (target="_blank") alone —
+			// the server-side render already set their target, and forcing
+			// them into the split-view iframe would often hit X-Frame-Options
+			// blocks.
+			var isExternal = a.closest('.nav-linkfile-external');
+			if (isExternal) return;
 			if (framed) a.setAttribute('target', 'content-frame');
 			else a.removeAttribute('target');
 		});
