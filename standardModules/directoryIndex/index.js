@@ -218,9 +218,13 @@ const moduleFunction = template => function (req, res, jslScope) {
 			if (!stat) continue;
 			items.push({ name, full, isDir: stat.isDirectory() });
 		}
-		// Directories first, then files, each alphabetized.
+		// Files first, then directories, each alphabetized. Files-before-dirs
+		// keeps a directory's own content visible at its natural indent level
+		// before the eye drops into nested subdirectories, which otherwise
+		// render their full contents in the middle of the parent listing and
+		// push the parent's own files visually below their children.
 		items.sort((a, b) => {
-			if (a.isDir !== b.isDir) return a.isDir ? -1 : 1;
+			if (a.isDir !== b.isDir) return a.isDir ? 1 : -1;
 			return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
 		});
 		for (const item of items) {
